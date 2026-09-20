@@ -95,8 +95,24 @@ export const som = {
     nota(880, 0, 0.1, 'sine', 0.14);
     nota(1174, 0.08, 0.14, 'sine', 0.12);
   },
-  tempo(): void {
-    nota(1200, 0, 0.05, 'square', 0.1);
+  /**
+   * Tique do relógio, tocado a cada segundo: fica mais agudo e mais presente
+   * conforme o tempo acaba, para o jogador sentir a pressão sem olhar o número.
+   */
+  tique(restante: number, total: number): void {
+    const critico = restante <= 5;
+    const atencao = restante <= 10;
+    const frequencia = critico ? 1320 : atencao ? 1046 : 880;
+    const volume = critico ? 0.16 : atencao ? 0.1 : 0.05;
+    nota(frequencia, 0, critico ? 0.09 : 0.05, 'square', volume);
+    if (critico) nota(frequencia / 2, 0.03, 0.07, 'triangle', volume * 0.6);
+    else if (total > 0 && restante === total) nota(frequencia * 1.5, 0.05, 0.05, 'sine', 0.05);
+  },
+  /** Buzina de tempo esgotado. */
+  tempoEsgotado(): void {
+    nota(220, 0, 0.55, 'sawtooth', 0.24);
+    nota(174, 0.2, 0.6, 'square', 0.2);
+    ruido(0, 0.35, 0.12);
   },
   parar(): void {
     [392, 523.25, 659.25].forEach((f, i) => nota(f, i * 0.12, 0.35, 'sine', 0.18));

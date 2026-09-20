@@ -493,15 +493,52 @@ textarea:focus-visible,
 /* ---------------------------------------------------- cronômetro */
 
 .cronometro {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--fonte-titulo);
-  font-size: 1.3rem;
-  color: var(--ouro-400);
+  --cor-tempo: var(--ouro-400);
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 12px;
+  filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
 }
 
-.cronometro.critico { color: var(--vermelho); animation: pulsar 0.6s ease-in-out infinite; }
+.cronometro svg {
+  width: 100%;
+  height: 100%;
+  /* Começa a esvaziar a partir do topo do anel. */
+  transform: rotate(-90deg);
+}
+
+.cronometro .trilho {
+  fill: rgba(3, 6, 29, 0.8);
+  stroke: rgba(143, 160, 255, 0.2);
+  stroke-width: 8;
+}
+
+.cronometro .progresso {
+  fill: none;
+  stroke: var(--cor-tempo);
+  stroke-width: 8;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.95s linear, stroke 0.4s ease;
+}
+
+.cronometro .numero {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--fonte-titulo);
+  font-size: 2.1rem;
+  color: var(--cor-tempo);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+}
+
+.cronometro.atencao { --cor-tempo: #ff9f2e; }
+
+.cronometro.critico {
+  --cor-tempo: var(--vermelho);
+  animation: pulsar 1s ease-in-out infinite;
+}
 
 @keyframes pulsar {
   0%, 100% { transform: scale(1); }
@@ -818,6 +855,8 @@ textarea:focus-visible,
 
 @media (max-width: 620px) {
   .enunciado { min-height: 120px; }
+  .cronometro { width: 82px; height: 82px; }
+  .cronometro .numero { font-size: 1.7rem; }
   .alternativas { grid-template-columns: 1fr; }
   .ajuda { flex: 1 1 calc(50% - 6px); min-width: 0; }
   .cabecalho .marca span:last-child { display: none; }

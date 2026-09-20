@@ -181,7 +181,10 @@ export function usarPlacas(
 }
 
 /** Frases do apresentador para dar ritmo à partida. */
-export function falaDoApresentador(rng: Rng, contexto: 'inicio' | 'acerto' | 'erro' | 'suspense' | 'parar'): string {
+export function falaDoApresentador(
+  rng: Rng,
+  contexto: 'inicio' | 'acerto' | 'erro' | 'suspense' | 'parar' | 'tempo',
+): string {
   const falas: Record<typeof contexto, string[]> = {
     inicio: [
       'Vamos começar! Boa sorte e muita calma nessa hora.',
@@ -209,6 +212,11 @@ export function falaDoApresentador(rng: Rng, contexto: 'inicio' | 'acerto' | 'er
       'Decisão de gente inteligente! Leva o dinheiro para casa.',
       'Parou na hora certa, hein! Parabéns pela coragem.',
       'Melhor um prêmio garantido do que um sonho arriscado.',
+    ],
+    tempo: [
+      'Acabou o tempo! O relógio não perdoa ninguém.',
+      'Tempo esgotado! Precisava ter arriscado, hein.',
+      'O relógio zerou. Que pena, o jogo é assim mesmo!',
     ],
   };
   return escolher(rng, falas[contexto]);

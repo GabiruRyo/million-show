@@ -36,6 +36,8 @@ export function Partida() {
 
   const pergunta = partida ? perguntaAtual(partida) : undefined;
   const fase = partida?.fase;
+  const tempoRestante = partida?.tempoRestante ?? 0;
+  const tempoTotal = partida ? tempoDaPergunta(partida.regras, partida.indice) : 0;
   const revelado = fase === 'revelado' || fase === 'encerrada';
   const suspense = fase === 'suspense';
 
@@ -62,10 +64,13 @@ export function Partida() {
     if (fase !== 'revelado' && fase !== 'encerrada') return;
     const ultima = partida?.historico[partida.historico.length - 1];
     if (!ultima) return;
+    // Sem escolha e sem pulo significa que o relógio zerou.
+    const porTempo = ultima.escolha === null && !ultima.pulada;
     const rng = criarRng(Date.now() % 100000);
-    setFala(falaDoApresentador(rng, ultima.acertou ? 'acerto' : 'erro'));
+    setFala(falaDoApresentador(rng, ultima.acertou ? 'acerto' : porTempo ? 'tempo' : 'erro'));
     if (config.som) {
       if (ultima.acertou) som.acerto();
+      else if (porTempo) som.tempoEsgotado();
       else som.erro();
     }
   }, [fase, partida?.historico.length, config.som]);
@@ -78,8 +83,9 @@ export function Partida() {
   }, [partida?.fase, partida?.indice, partida?.regras.tempoPorPergunta, tiqueCronometro, partida]);
 
   useEffect(() => {
-    if (partida && partida.tempoRestante <= 5 && partida.tempoRestante > 0 && config.som) som.tempo();
-  }, [partida?.tempoRestante, config.som, partida]);
+    if (fase !== 'respondendo' || !config.som || tempoTotal <= 0 || tempoRestante <= 0) return;
+    som.tique(tempoRestante, tempoTotal);
+  }, [tempoRestante, tempoTotal, fase, config.som]);
 
   // Atalhos de teclado
   useEffect(() => {
@@ -139,10 +145,6 @@ export function Partida() {
               <span className="etiqueta">{'❤️'.repeat(Math.max(0, partida.vidas))}</span>
             )}
             {!classico && <span className="etiqueta">⭐ {partida.pontos} pts</span>}
-            <Cronometro
-              segundos={partida.tempoRestante}
-              total={tempoDaPergunta(partida.regras, partida.indice)}
-            />
           </span>
         }
       />
@@ -159,6 +161,8 @@ export function Partida() {
                   : `Pergunta ${partida.indice + 1} de ${partida.perguntas.length}`}
               </span>
             </div>
+
+            <Cronometro segundos={tempoRestante} total={tempoTotal} />
 
             <div className="enunciado" key={pergunta.id}>
               <h2 style={{ margin: 0, fontFamily: 'var(--fonte)', fontWeight: 600 }}>
