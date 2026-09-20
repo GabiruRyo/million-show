@@ -13,7 +13,7 @@ import {
   tique,
   usarAjuda,
 } from './maquina';
-import { REGRAS_PRESET } from './regras';
+import { REGRAS_PRESET, tempoDaPergunta } from './regras';
 import { PREMIOS } from '../dados/premios';
 
 function perguntaFalsa(indice: number): Pergunta {
@@ -175,6 +175,38 @@ describe('máquina da partida', () => {
       const soma = placas.ajudaAtiva.percentuais.reduce((s, p) => s + p, 0);
       expect(soma).toBe(100);
     }
+  });
+
+  it('o preset clássico tem cronômetro, com mais tempo nas perguntas valiosas', () => {
+    const regras = REGRAS_PRESET.classico;
+    expect(regras.tempoPorPergunta).toBeGreaterThan(0);
+    expect(tempoDaPergunta(regras, 0)).toBe(45);
+    expect(tempoDaPergunta(regras, 5)).toBe(68);
+    expect(tempoDaPergunta(regras, 15)).toBe(90);
+  });
+
+  it('sem tempo definido, o cronômetro fica desligado em qualquer degrau', () => {
+    const semTempo = { ...REGRAS_PRESET.classico, tempoPorPergunta: 0 };
+    expect(tempoDaPergunta(semTempo, 0)).toBe(0);
+    expect(tempoDaPergunta(semTempo, 15)).toBe(0);
+  });
+
+  it('com tempo fixo, todos os degraus têm a mesma duração', () => {
+    const fixo = REGRAS_PRESET.radical;
+    expect(fixo.tempoCrescente).toBe(false);
+    expect(tempoDaPergunta(fixo, 0)).toBe(tempoDaPergunta(fixo, 15));
+  });
+
+  it('a partida começa com o cronômetro cheio do primeiro degrau', () => {
+    const estado = partidaClassica();
+    expect(estado.tempoRestante).toBe(tempoDaPergunta(estado.regras, 0));
+  });
+
+  it('o cronômetro é recarregado com o tempo do degrau seguinte', () => {
+    let estado = partidaClassica();
+    for (let i = 0; i < 10; i++) estado = acertarEavancar(estado);
+    expect(estado.indice).toBe(10);
+    expect(estado.tempoRestante).toBe(90);
   });
 
   it('o cronômetro encerra a partida quando o tempo zera', () => {

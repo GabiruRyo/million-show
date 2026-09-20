@@ -309,6 +309,8 @@ function iniciarModoLivre(set: Set, get: Get, modo: ModoJogo, categorias: Catego
   const regras = {
     ...get().config.regras,
     tempoPorPergunta: modo === 'contra-relogio' ? 20 : modo === 'sobrevivencia' ? 30 : 0,
+    // Nos modos livres o tempo é igual para todas as perguntas.
+    tempoCrescente: false,
   };
   set({
     partida: criarPartida({ modo, perguntas, semente, regras, vidas: modo === 'sobrevivencia' ? 3 : 1 }),

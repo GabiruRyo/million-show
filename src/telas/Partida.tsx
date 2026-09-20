@@ -11,6 +11,7 @@ import { PREMIOS, formatarPremioCurto, formatarReais } from '../dados/premios';
 import { LETRAS, falaDoApresentador } from '../jogo/ajudas';
 import { criarRng } from '../jogo/aleatorio';
 import { ehPerguntaDoMilhao, perguntaAtual } from '../jogo/maquina';
+import { tempoDaPergunta } from '../jogo/regras';
 import { pararSuspense, som } from '../audio/sintetizador';
 import type { IndiceAlternativa } from '../tipos';
 
@@ -138,7 +139,10 @@ export function Partida() {
               <span className="etiqueta">{'❤️'.repeat(Math.max(0, partida.vidas))}</span>
             )}
             {!classico && <span className="etiqueta">⭐ {partida.pontos} pts</span>}
-            <Cronometro segundos={partida.tempoRestante} total={partida.regras.tempoPorPergunta} />
+            <Cronometro
+              segundos={partida.tempoRestante}
+              total={tempoDaPergunta(partida.regras, partida.indice)}
+            />
           </span>
         }
       />

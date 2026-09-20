@@ -55,6 +55,14 @@ export function Regulamento() {
             Nos outros degraus, o que acontece ao errar depende do preset de regras escolhido em Configurações:
             metade do acumulado (clássico), nada (radical) ou o último patamar garantido.
           </p>
+          <h3 className="texto-ouro" style={{ marginTop: 18 }}>O relógio</h3>
+          <p>
+            Cada pergunta tem tempo para ser respondida: no preset clássico são{' '}
+            <strong>45 segundos</strong> no começo, <strong>68 segundos</strong> da 6ª à 10ª pergunta e{' '}
+            <strong>90 segundos</strong> da 11ª em diante — quanto mais vale, mais tempo para pensar. Se o
+            tempo acabar, a partida se encerra como se você tivesse errado. Em Configurações dá para mudar o
+            tempo-base, desligar o crescimento ou tirar o cronômetro por completo.
+          </p>
         </div>
 
         <div className="painel">

@@ -9,7 +9,7 @@ import type {
   TipoAjuda,
 } from '../tipos';
 import { PREMIOS, TOTAL_PERGUNTAS } from '../dados/premios';
-import { REGRAS_PADRAO } from './regras';
+import { REGRAS_PADRAO, tempoDaPergunta } from './regras';
 import { usarCartas, usarPlacas, usarUniversitarios } from './ajudas';
 
 export interface OpcoesPartida {
@@ -43,7 +43,7 @@ export function criarPartida(opcoes: OpcoesPartida): EstadoPartida {
     acumulado: 0,
     premioFinal: 0,
     motivoFim: null,
-    tempoRestante: regras.tempoPorPergunta,
+    tempoRestante: tempoDaPergunta(regras, 0),
     vidas: opcoes.vidas ?? (opcoes.modo === 'sobrevivencia' ? 3 : 0),
     pontos: 0,
   };
@@ -122,16 +122,14 @@ function registrar(
     acertou,
     pulada,
     ajudasUsadas: estado.ajudasNaPergunta,
-    segundos: Math.max(0, estado.regras.tempoPorPergunta - estado.tempoRestante),
+    segundos: Math.max(0, tempoDaPergunta(estado.regras, estado.indice) - estado.tempoRestante),
   };
 }
 
 function pontosDaResposta(estado: EstadoPartida, pergunta: Pergunta): number {
   const base = pergunta.nivel * 100;
-  const bonusTempo =
-    estado.regras.tempoPorPergunta > 0
-      ? Math.round((estado.tempoRestante / estado.regras.tempoPorPergunta) * 50)
-      : 0;
+  const tempoTotal = tempoDaPergunta(estado.regras, estado.indice);
+  const bonusTempo = tempoTotal > 0 ? Math.round((estado.tempoRestante / tempoTotal) * 50) : 0;
   const semAjuda = estado.ajudasNaPergunta.length === 0 ? 25 : 0;
   return base + bonusTempo + semAjuda;
 }
@@ -181,7 +179,7 @@ export function proxima(estado: EstadoPartida): EstadoPartida {
     eliminadas: [],
     ajudaAtiva: null,
     ajudasNaPergunta: [],
-    tempoRestante: estado.regras.tempoPorPergunta,
+    tempoRestante: tempoDaPergunta(estado.regras, proximoIndice),
   };
 }
 

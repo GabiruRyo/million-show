@@ -33,13 +33,20 @@ São **16 perguntas** em ordem crescente de dificuldade, de R$ 1.000 a **R$ 1.00
 opinam, e erram mais nas perguntas difíceis) · 🪧 Placas (votação da plateia) · ⏭️ Pular (3×) ·
 🛑 Parar (encerra levando o acumulado).
 
+Cada pergunta tem tempo para ser respondida. No preset clássico o relógio começa em **45
+segundos** e cresce conforme o prêmio: 68 segundos da 6ª à 10ª pergunta e 90 segundos da 11ª em
+diante. Se o tempo acabar, a partida termina como se a resposta estivesse errada.
+
 Na 16ª pergunta vale a regra clássica: acertar paga o milhão, parar garante R$ 500 mil e
 errar significa ir para casa sem nada. Nos demais degraus, o efeito do erro depende do preset
 escolhido em Configurações:
 
-- **Clássico** — leva metade do valor acumulado (padrão);
-- **Radical** — sai sem nada, com 45 segundos por pergunta;
-- **Patamares** — garante R$ 5 mil e R$ 50 mil, como nos programas modernos.
+- **Clássico** — leva metade do valor acumulado; 45s por pergunta, com tempo extra nas mais valiosas (padrão);
+- **Radical** — sai sem nada, com 30 segundos fixos por pergunta;
+- **Patamares** — garante R$ 5 mil e R$ 50 mil, com um minuto por pergunta.
+
+O tempo-base, o crescimento e o próprio cronômetro (que pode ser desligado) ficam ajustáveis em
+Configurações.
 
 ### Outros modos
 

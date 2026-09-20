@@ -87,8 +87,10 @@ export interface Regras {
   preset: PresetRegra;
   /** Quantos pulos o participante tem na partida. */
   pulos: number;
-  /** Tempo por pergunta em segundos; 0 = sem cronômetro. */
+  /** Tempo-base por pergunta em segundos; 0 = sem cronômetro. */
   tempoPorPergunta: number;
+  /** Se verdadeiro, o tempo cresce conforme a pergunta fica mais valiosa. */
+  tempoCrescente: boolean;
   /** Fração do acumulado que o participante leva ao errar (preset clássico). */
   fracaoAoErrar: number;
   /** Índices (1-based) das perguntas que são patamares garantidos. */

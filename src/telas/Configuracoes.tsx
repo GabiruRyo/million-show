@@ -53,7 +53,8 @@ export function Configuracoes() {
             </div>
             <div className="campo" style={{ flex: '1 1 200px', marginBottom: 0 }}>
               <label htmlFor="tempo">
-                Tempo por pergunta: {config.regras.tempoPorPergunta === 0 ? 'sem limite' : `${config.regras.tempoPorPergunta}s`}
+                Tempo por pergunta:{' '}
+                {config.regras.tempoPorPergunta === 0 ? 'sem limite' : `${config.regras.tempoPorPergunta}s`}
               </label>
               <input
                 id="tempo"
@@ -68,6 +69,25 @@ export function Configuracoes() {
               />
             </div>
           </div>
+
+          <label className="linha" style={{ gap: 8, marginTop: 14 }}>
+            <input
+              type="checkbox"
+              checked={config.regras.tempoCrescente}
+              disabled={config.regras.tempoPorPergunta === 0}
+              onChange={(e) =>
+                atualizar({ regras: { ...config.regras, tempoCrescente: e.target.checked } })
+              }
+            />
+            Dar mais tempo nas perguntas mais valiosas
+          </label>
+          <p className="cinza pequeno" style={{ margin: '4px 0 0' }}>
+            {config.regras.tempoPorPergunta === 0
+              ? 'Com o cronômetro desligado, o tempo é ilimitado em todas as perguntas.'
+              : config.regras.tempoCrescente
+                ? `Da 6ª à 10ª pergunta o tempo sobe para ${Math.round(config.regras.tempoPorPergunta * 1.5)}s, e da 11ª em diante vai a ${config.regras.tempoPorPergunta * 2}s.`
+                : 'Todas as perguntas terão exatamente o mesmo tempo.'}
+          </p>
         </div>
 
         <div className="painel" style={{ marginBottom: 18 }}>
