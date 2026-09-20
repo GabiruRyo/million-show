@@ -1,0 +1,32 @@
+{
+  "name": "show-do-milhao",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Réplica jogável do Show do Milhão em português, com banco de 1.600 perguntas.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "checar": "node scripts/checar.mjs",
+    "validar": "vitest run src/dados/perguntas/banco.test.ts --reporter=basic"
+  },
+  "dependencies": {
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^26.0.0",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vitest": "^3.0.5"
+  }
+}

@@ -1,0 +1,140 @@
+import type { Categoria, CategoriaId } from '../tipos';
+
+export const CATEGORIAS: Categoria[] = [
+  {
+    id: 'historia-brasil',
+    nome: 'História do Brasil',
+    nomeCurto: 'Brasil',
+    icone: '🇧🇷',
+    cor: '#3fa34d',
+    descricao: 'Do descobrimento à Nova República: colônia, império, ditadura e redemocratização.',
+  },
+  {
+    id: 'historia-geral',
+    nome: 'História Geral',
+    nomeCurto: 'História',
+    icone: '🏛️',
+    cor: '#b07d3a',
+    descricao: 'Antiguidade, Idade Média, revoluções, guerras mundiais e o mundo contemporâneo.',
+  },
+  {
+    id: 'geografia-brasil',
+    nome: 'Geografia do Brasil',
+    nomeCurto: 'Geo BR',
+    icone: '🗺️',
+    cor: '#2f8f83',
+    descricao: 'Estados, capitais, relevo, rios, biomas, clima e economia brasileira.',
+  },
+  {
+    id: 'geografia-mundial',
+    nome: 'Geografia Mundial',
+    nomeCurto: 'Geo Mundo',
+    icone: '🌍',
+    cor: '#2d6fb5',
+    descricao: 'Países, capitais, continentes, oceanos, montanhas e fenômenos naturais.',
+  },
+  {
+    id: 'biologia-corpo',
+    nome: 'Biologia e Corpo Humano',
+    nomeCurto: 'Biologia',
+    icone: '🧬',
+    cor: '#5aa469',
+    descricao: 'Células, genética, anatomia, animais, plantas e ecologia.',
+  },
+  {
+    id: 'fisica-quimica',
+    nome: 'Física e Química',
+    nomeCurto: 'Física/Química',
+    icone: '⚗️',
+    cor: '#7b5bd6',
+    descricao: 'Leis da física, elementos químicos, energia, átomos e o universo.',
+  },
+  {
+    id: 'matematica-logica',
+    nome: 'Matemática e Lógica',
+    nomeCurto: 'Matemática',
+    icone: '🔢',
+    cor: '#c0552f',
+    descricao: 'Números, geometria, probabilidade, sequências e raciocínio lógico.',
+  },
+  {
+    id: 'lingua-portuguesa',
+    nome: 'Língua Portuguesa',
+    nomeCurto: 'Português',
+    icone: '✒️',
+    cor: '#3b7dd8',
+    descricao: 'Gramática, ortografia, significados, figuras de linguagem e etimologia.',
+  },
+  {
+    id: 'literatura',
+    nome: 'Literatura',
+    nomeCurto: 'Literatura',
+    icone: '📚',
+    cor: '#8a4b6d',
+    descricao: 'Clássicos brasileiros e mundiais, autores, obras e escolas literárias.',
+  },
+  {
+    id: 'musica',
+    nome: 'Música',
+    nomeCurto: 'Música',
+    icone: '🎵',
+    cor: '#d4478a',
+    descricao: 'MPB, samba, sertanejo, rock, pop internacional e música clássica.',
+  },
+  {
+    id: 'cinema-tv',
+    nome: 'Cinema e TV',
+    nomeCurto: 'Cinema/TV',
+    icone: '🎬',
+    cor: '#c23b4b',
+    descricao: 'Filmes, séries, novelas, atores, diretores e prêmios.',
+  },
+  {
+    id: 'futebol',
+    nome: 'Futebol',
+    nomeCurto: 'Futebol',
+    icone: '⚽',
+    cor: '#2f9e44',
+    descricao: 'Copas do Mundo, Brasileirão, Libertadores, ídolos e recordes.',
+  },
+  {
+    id: 'esportes',
+    nome: 'Esportes',
+    nomeCurto: 'Esportes',
+    icone: '🏅',
+    cor: '#e08b1f',
+    descricao: 'Olimpíadas, vôlei, automobilismo, tênis, lutas e atletismo.',
+  },
+  {
+    id: 'tecnologia',
+    nome: 'Tecnologia e Internet',
+    nomeCurto: 'Tecnologia',
+    icone: '💻',
+    cor: '#3aa0c9',
+    descricao: 'Computação, internet, games, empresas e invenções digitais.',
+  },
+  {
+    id: 'arte-mitologia',
+    nome: 'Arte, Mitologia e Religião',
+    nomeCurto: 'Arte/Mitos',
+    icone: '🏺',
+    cor: '#9b6b2e',
+    descricao: 'Pintura, escultura, arquitetura, mitos gregos e tradições religiosas.',
+  },
+  {
+    id: 'curiosidades',
+    nome: 'Curiosidades Gerais',
+    nomeCurto: 'Curiosidades',
+    icone: '💡',
+    cor: '#c9a227',
+    descricao: 'Comida, animais, recordes, bandeiras, datas e conhecimentos variados.',
+  },
+];
+
+export const CATEGORIA_POR_ID: Record<CategoriaId, Categoria> = Object.fromEntries(
+  CATEGORIAS.map((c) => [c.id, c]),
+) as Record<CategoriaId, Categoria>;
+
+export function nomeCategoria(id: CategoriaId): string {
+  return CATEGORIA_POR_ID[id]?.nome ?? id;
+}
